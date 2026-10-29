@@ -11,6 +11,7 @@ PayFlow AI is an open-source hackathon project that combines local AI project sc
 - Judge preview: https://iwesley.dev/payflow-ai-preview
 - Direct demo: https://iwesley.dev/payflow-ai/
 - Recorded demo MP4: https://iwesley.dev/payflow-ai-demo.mp4
+- Download demo MP4: https://iwesley.dev/payflow-ai-demo-download.mp4
 - Source: https://github.com/VeloxityNL/payflow-ai
 
 ## Core flow
@@ -41,6 +42,17 @@ The AI is not a decorative chatbot: its structured output directly determines th
 - PayPal Webhooks + signature verification
 - JSON persistence for hackathon demo state
 - Nginx + systemd deployment on Ubuntu 24.04
+
+## Sandbox dashboard metrics
+
+The live workspace derives its payment metrics from the same persisted state updated by PayPal orders, captures, and verified webhooks:
+
+- planned project volume;
+- paid Sandbox volume;
+- pending Sandbox amount;
+- orders created;
+- successful captures;
+- recent AI / approval / PayPal / webhook events.
 
 ## Safety / design choices
 
@@ -105,6 +117,16 @@ Recommended events:
 - `PAYMENT.CAPTURE.COMPLETED`
 - `PAYMENT.CAPTURE.DENIED`
 - `PAYMENT.CAPTURE.REFUNDED`
+
+## Verification
+
+Run the built-in safety tests:
+
+```bash
+npm test
+```
+
+The suite verifies that AI milestone totals always normalize exactly to the user-approved budget, generic model milestone names are rejected, and PayPal amounts are formatted safely.
 
 ## API overview
 

@@ -75,8 +75,15 @@ export async function paypalRequest(endpoint, options = {}) {
 }
 
 export function formatMoney(value) {
-  return Math.max(5, Number(value) || 0).toFixed(2);
+  const amount = Number(value);
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    throw new Error('PayPal amount must be a positive number.');
+  }
+
+  return amount.toFixed(2);
 }
+
 
 export async function verifyWebhook(headers, event) {
   if (!config.paypalWebhookId) return false;

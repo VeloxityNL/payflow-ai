@@ -1,8 +1,15 @@
 {
   "name": "payflow-ai",
   "version": "0.1.0",
-  "private": false,
+  "description": "AI-powered freelance scoping with human-approved PayPal Sandbox milestone payments.",
+  "license": "MIT",
   "type": "module",
-  "scripts": {"start":"node server.js","dev":"node --watch server.js","test":"node --test"},
-  "dependencies": {"express":"^5.1.0"}
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }

@@ -15,6 +15,13 @@ PayFlow AI accepts a client brief and target budget, uses a local AI model to ge
 ## How we built it
 We built the app with Node.js and Express, a responsive browser UI, a dedicated local Qwen2.5 0.5B Instruct model served through llama.cpp, and PayPal REST APIs. The PayPal integration uses OAuth, Orders v2, capture, webhooks, and webhook signature verification. To keep the demo reliable, model output is schema-checked, milestone amounts are financially normalized to the approved budget, and inference has a timeout with a deterministic fallback generator. Secrets remain server-side and all financial actions are Sandbox-only.
 
+## Tools used
+
+- **PayPal Developer Platform:** Sandbox OAuth, Orders v2, Checkout approval, capture, webhooks, and webhook signature verification.
+- **Qwen2.5 0.5B Instruct + llama.cpp:** local AI analysis of unstructured client briefs into project semantics and milestone weights.
+- **Node.js + Express:** server-side orchestration, validation, state, and API routes.
+- **Browser-native HTML/CSS/JavaScript:** responsive product UI for desktop and mobile.
+
 ## Challenges we ran into
 Local AI inference can be inconsistent in latency, so we designed a fallback path that preserves the product flow without pretending a model response succeeded. We also separated AI recommendation from payment execution with a human approval gate, and implemented webhook verification instead of trusting incoming callbacks.
 
@@ -35,4 +42,6 @@ Next we would add persistent database storage, reusable client templates, invoic
 Judge preview: https://iwesley.dev/payflow-ai-preview
 Direct demo: https://iwesley.dev/payflow-ai/
 Recorded demo MP4: https://iwesley.dev/payflow-ai-demo.mp4
+Downloadable demo: https://iwesley.dev/payflow-ai-demo-download.mp4
+YouTube demo: <ADD_PUBLIC_YOUTUBE_URL_AFTER_UPLOAD>
 Repository: https://github.com/VeloxityNL/payflow-ai

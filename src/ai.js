@@ -1,7 +1,7 @@
 import { config } from './config.js';
 import { createId } from './store.js';
 
-function buildFallbackPlan(brief, budget) {
+export function buildFallbackPlan(brief, budget) {
   const safeBudget = Math.max(100, Number(budget) || 600);
   const weights = [0.2, 0.55, 0.25];
 
@@ -46,7 +46,7 @@ function buildFallbackPlan(brief, budget) {
  * Convert uncertain model output into a safe, deterministic project plan.
  * The model decides the semantic content; this layer enforces financial invariants.
  */
-function normalizePlan(candidate, fallback, budget) {
+export function normalizePlan(candidate, fallback, budget) {
   const safeBudget = Math.max(100, Number(budget) || 600);
 
   const sourceMilestones = Array.isArray(candidate?.milestones)

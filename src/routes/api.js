@@ -17,11 +17,27 @@ apiRouter.get('/status', async (req, res) => {
     paypalSandbox = false;
   }
 
+  const allPayments = state.projects.flatMap((project) => project.payments || []);
+  const plannedVolume = state.projects.reduce((sum, project) => sum + Number(project.budget || 0), 0);
+  const paidVolume = allPayments
+    .filter((payment) => payment.status === 'COMPLETED')
+    .reduce((sum, payment) => sum + Number(payment.amount || 0), 0);
+  const pendingVolume = allPayments
+    .filter((payment) => payment.status !== 'COMPLETED')
+    .reduce((sum, payment) => sum + Number(payment.amount || 0), 0);
+
   res.json({
     ok: true,
     paypalSandbox,
     ai: config.localAiModel,
     projects: state.projects.length,
+    metrics: {
+      plannedVolume,
+      paidVolume,
+      pendingVolume,
+      ordersCreated: allPayments.length,
+      capturesCompleted: allPayments.filter((payment) => payment.status === 'COMPLETED').length,
+    },
     events: state.events.slice(0, 12),
   });
 });
@@ -97,6 +113,28 @@ apiRouter.post('/projects/:projectId/milestones/:milestoneId/order', async (req,
     );
 
     if (!milestone) return res.status(404).json({ error: 'Milestone not found.' });
+    if (milestone.status === 'PAID') {
+      return res.status(409).json({ error: 'This milestone is already paid.' });
+    }
+
+    // Reuse an existing non-completed Sandbox order instead of creating
+    // duplicates when a user double-clicks or revisits the payment action.
+    const existingPayment = project.payments.find(
+      (payment) => payment.milestoneId === milestone.id && payment.status !== 'COMPLETED',
+    );
+
+    if (existingPayment?.orderId) {
+      const existingOrder = await paypalRequest(
+        `/v2/checkout/orders/${encodeURIComponent(existingPayment.orderId)}`,
+      );
+
+      return res.json({
+        orderId: existingOrder.id,
+        status: existingOrder.status,
+        approveUrl: existingOrder.links?.find((link) => link.rel === 'approve')?.href,
+        reused: true,
+      });
+    }
 
     const order = await paypalRequest('/v2/checkout/orders', {
       method: 'POST',

@@ -20,6 +20,7 @@ This file maps the current PayFlow AI implementation to the judging criteria sho
 - Coherent flow from brief → AI plan → approval → PayPal payment → activity timeline.
 - Clear visual distinction between AI recommendations, human approval, and payment state.
 - Live service status for PayPal Sandbox + local AI.
+- Live Sandbox metrics for planned, paid and pending volume plus completed captures.
 - AI safeguards are visible in the proposal UI.
 
 ## Potential Impact

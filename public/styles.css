@@ -1204,3 +1204,36 @@ footer {
     display: none;
   }
 }
+
+
+/* --------------------------------------------------------------------------
+   Sidebar metrics
+   -------------------------------------------------------------------------- */
+
+.sidebar-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: 1rem 0;
+}
+
+.sidebar-stat {
+  padding: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.sidebar-stat small {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sidebar-stat strong {
+  font-size: 0.95rem;
+  color: var(--text);
+}

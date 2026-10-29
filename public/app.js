@@ -85,6 +85,13 @@ async function refreshStatus() {
     const health = $('#health');
 
     $('#projectCount').textContent = status.projects;
+
+    const metrics = status.metrics || {};
+    $('#plannedVolume').textContent = formatCurrency(metrics.plannedVolume || 0);
+    $('#paidVolume').textContent = formatCurrency(metrics.paidVolume || 0);
+    $('#pendingVolume').textContent = formatCurrency(metrics.pendingVolume || 0);
+    $('#captureCount').textContent = metrics.capturesCompleted || 0;
+
     health.classList.toggle('ok', status.paypalSandbox);
     health.innerHTML = `
       <span></span>
