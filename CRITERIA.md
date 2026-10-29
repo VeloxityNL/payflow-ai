@@ -46,4 +46,4 @@ The project does not simply place a chatbot next to a checkout button. AI-genera
 - Direct live app: https://iwesley.dev/payflow-ai/
 - Public source: https://github.com/VeloxityNL/payflow-ai
 - Recorded demo source MP4: https://iwesley.dev/payflow-ai-demo.mp4
-- Final Devpost submission still requires the demo video to be uploaded publicly to YouTube.
+- Public YouTube demo: https://youtu.be/tNFGpnGjSq4?feature=shared
