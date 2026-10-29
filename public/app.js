@@ -381,6 +381,30 @@ async function loadActivity() {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Judge preview mode
+// ---------------------------------------------------------------------------
+
+function enableJudgePreview() {
+  const query = new URLSearchParams(window.location.search);
+  if (query.get('preview') !== 'judge') return;
+
+  const banner = $('#judgeBanner');
+  if (banner) banner.hidden = false;
+
+  // Keep the preview deterministic and immediately understandable for judges.
+  $('#client').value = 'Northstar Creative';
+  $('#budget').value = '1500';
+  $('#brief').value = [
+    'Build a polished responsive portfolio and lead-generation website for a small creative studio.',
+    'Include case studies, services, contact capture, analytics, mobile optimization, deployment,',
+    'and a simple content update workflow. The client wants clear milestones and payment boundaries.'
+  ].join(' ');
+
+  showToast('Judge preview ready — analyze the sample brief to start');
+}
+
 // Boot the public demo.
+enableJudgePreview();
 refreshStatus();
 handlePayPalReturn();

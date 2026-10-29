@@ -1237,3 +1237,47 @@ footer {
   font-size: 0.95rem;
   color: var(--text);
 }
+
+/* Judge preview banner: only shown through the stable /payflow-ai-preview route. */
+.judge-banner {
+  max-width: 1180px;
+  margin: 24px auto 0;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid rgba(0, 156, 222, 0.34);
+  border-radius: 16px;
+  background: rgba(0, 156, 222, 0.08);
+}
+
+.judge-banner[hidden] {
+  display: none;
+}
+
+.judge-banner div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: baseline;
+}
+
+.judge-banner span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.btn.small {
+  min-height: 36px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 720px) {
+  .judge-banner {
+    margin: 16px 16px 0;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
