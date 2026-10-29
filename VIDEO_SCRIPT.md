@@ -1,39 +1,22 @@
-# PayFlow AI — demo video script (under 3 minutes)
+# PayFlow AI — final demo video
 
-## 0:00–0:12 — Problem
+## Final cut
 
-**On-screen:** PayFlow AI home screen.
+- Runtime: ~44 seconds
+- Resolution: 1280×720
+- Fullscreen kiosk capture
+- Cursor hidden
+- No Chrome address bar, tabs, or automation banner
+- First visible action: ~1.1 seconds
+- Original copyright-safe chill/lofi instrumental, mixed quietly in the background
 
-Narration / caption:
-> Freelancers often receive vague briefs, then manually turn them into scope, milestones and payment requests. PayFlow AI connects those steps while keeping the human in control.
+## Story shown in the video
 
-## 0:12–0:35 — AI scoping
+1. Client brief enters PayFlow immediately.
+2. Local planning turns the brief into scoped milestones.
+3. Financial safeguards keep milestone totals aligned to the approved budget.
+4. Human approval is required before a payment action.
+5. PayPal Sandbox integration is explained: Orders v2, capture, and verified webhooks.
+6. Projects, payment state, and the audit trail are shown as one connected workflow.
 
-Paste a realistic client brief and a target budget. Select **Analyze with AI**.
-
-Point out:
-- the local Qwen model;
-- concrete milestone semantics;
-- risk classification;
-- safeguards;
-- milestone totals normalized exactly to the approved budget.
-
-## 0:35–0:50 — Human approval
-
-Select **Approve payment plan**. Explain that no PayPal order can be created before this explicit approval gate.
-
-## 0:50–1:10 — PayPal Sandbox
-
-Show the **Pay with PayPal** action and explain the live Sandbox flow:
-1. PayFlow creates a PayPal Orders v2 order;
-2. PayPal hosts buyer approval;
-3. PayFlow captures the approved order;
-4. signed PayPal webhooks update state.
-
-## 1:10–1:25 — Dashboard + activity
-
-Show Projects, payment metrics and Activity. Emphasize that planned, pending and paid amounts are derived from the same persisted state updated by PayPal.
-
-## 1:25–1:35 — Close
-
-> PayFlow AI turns an ambiguous client request into a reviewable, human-approved payment workflow — powered by local AI and PayPal Sandbox.
+The video intentionally avoids triggering an automated PayPal order during recording. The live judge demo exposes the real Sandbox payment action for interactive testing.
