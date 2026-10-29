@@ -137,7 +137,7 @@ export async function analyzeBrief(brief, budget) {
     const response = await fetch(config.localAiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      signal: AbortSignal.timeout(7500),
+      signal: AbortSignal.timeout(10000),
       body: JSON.stringify({
         model: config.localAiModel,
         messages: [
@@ -148,7 +148,8 @@ export async function analyzeBrief(brief, budget) {
           { role: 'user', content: prompt },
         ],
         temperature: 0.1,
-        max_tokens: 500,
+        max_tokens: 320,
+        response_format: { type: 'json_object' },
       }),
     });
 
