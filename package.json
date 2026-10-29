@@ -1,0 +1,8 @@
+{
+  "name": "payflow-ai",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "scripts": {"start":"node server.js","dev":"node --watch server.js","test":"node --test"},
+  "dependencies": {"express":"^5.1.0"}
+}
