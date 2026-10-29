@@ -145,7 +145,39 @@ export async function analyzeBrief(brief, budget) {
         ],
         temperature: 0.1,
         max_tokens: 130,
-        response_format: { type: 'json_object' },
+        response_format: {
+          type: 'json_schema',
+          json_schema: {
+            name: 'payflow_plan',
+            strict: true,
+            schema: {
+              type: 'object',
+              properties: {
+                summary: { type: 'string' },
+                risk: {
+                  type: 'string',
+                  enum: ['Low', 'Medium', 'High'],
+                },
+                milestones: {
+                  type: 'array',
+                  minItems: 3,
+                  maxItems: 3,
+                  items: {
+                    type: 'object',
+                    properties: {
+                      name: { type: 'string' },
+                      weight: { type: 'number' },
+                    },
+                    required: ['name', 'weight'],
+                    additionalProperties: false,
+                  },
+                },
+              },
+              required: ['summary', 'risk', 'milestones'],
+              additionalProperties: false,
+            },
+          },
+        },
       }),
     });
 
