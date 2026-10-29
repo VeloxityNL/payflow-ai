@@ -88,7 +88,7 @@ async function refreshStatus() {
     health.classList.toggle('ok', status.paypalSandbox);
     health.innerHTML = `
       <span></span>
-      ${status.paypalSandbox ? 'AI + PayPal ready' : 'Sandbox unavailable'}
+      ${status.paypalSandbox ? 'Services ready' : 'Sandbox unavailable'}
     `;
   } catch {
     // The UI remains usable even if this decorative status check fails.

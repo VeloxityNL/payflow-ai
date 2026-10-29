@@ -49,14 +49,6 @@ function buildFallbackPlan(brief, budget) {
 function normalizePlan(candidate, fallback, budget) {
   const safeBudget = Math.max(100, Number(budget) || 600);
 
-  const risks = Array.isArray(candidate?.risks)
-    ? candidate.risks.map(String).filter(Boolean).slice(0, 3)
-    : fallback.risks;
-
-  const deliverables = Array.isArray(candidate?.deliverables)
-    ? candidate.deliverables.map(String).filter(Boolean).slice(0, 6)
-    : fallback.deliverables;
-
   const sourceMilestones = Array.isArray(candidate?.milestones)
     ? candidate.milestones.slice(0, 3)
     : [];
@@ -67,13 +59,15 @@ function normalizePlan(candidate, fallback, budget) {
     const proposedName = String(modelMilestone.name || '').trim();
     const genericName = /^(week|project|phase|milestone)\s*\d+$/i.test(proposedName);
 
+    const safeName = String(
+      proposedName && !genericName ? proposedName : fallbackMilestone.name,
+    ).slice(0, 90);
+
     return {
       id: createId('ms'),
-      name: String(
-        proposedName && !genericName ? proposedName : fallbackMilestone.name,
-      ).slice(0, 90),
+      name: safeName,
       description: String(
-        modelMilestone.description || fallbackMilestone.description,
+        modelMilestone.description || `Complete ${safeName.toLowerCase()} and verify acceptance criteria.`,
       ).slice(0, 220),
       status: 'PROPOSED',
     };
@@ -82,7 +76,7 @@ function normalizePlan(candidate, fallback, budget) {
   // Financial amounts are normalized after AI generation so they always equal
   // the user's approved budget. This prevents model arithmetic errors from
   // reaching PayPal while preserving the AI-created milestone semantics.
-  const proposedAmounts = sourceMilestones.map((item) => Number(item?.amount) || 0);
+  const proposedAmounts = sourceMilestones.map((item) => Number(item?.weight ?? item?.amount) || 0);
   const positiveTotal = proposedAmounts.reduce((sum, amount) => sum + Math.max(0, amount), 0);
   const fallbackWeights = [0.2, 0.55, 0.25];
 
@@ -105,11 +99,13 @@ function normalizePlan(candidate, fallback, budget) {
     ? candidate.risk
     : fallback.risk;
 
+  const deliverables = milestones.map((milestone) => milestone.name);
+
   return {
     summary: String(candidate?.summary || fallback.summary).slice(0, 240),
     risk: validRisk,
-    risks: risks.length ? risks : fallback.risks,
-    deliverables: deliverables.length ? deliverables : fallback.deliverables,
+    risks: fallback.risks,
+    deliverables,
     milestones,
   };
 }
@@ -123,21 +119,21 @@ export async function analyzeBrief(brief, budget) {
   const numericBudget = Math.max(100, Number(budget) || 600);
 
   const prompt = [
-    'Create a concise freelance project plan.',
-    `Budget: ${numericBudget} USD.`,
+    'Create a concise freelance payment structure.',
     `Brief: ${brief}`,
-    'Return JSON only with:',
-    'summary string, risk Low|Medium|High, risks array of 3 strings,',
-    'deliverables array of 3-5 strings, milestones array of exactly 3 objects',
-    'with name, description, amount. Milestone names must be concrete deliverables, never Week 1/2/3 or Project 1/2/3.',
-    'Make the three milestone amounts roughly reflect effort.',
+    'Return JSON only:',
+    '{summary, risk, milestones:[{name, weight},{name, weight},{name, weight}]}.',
+    'risk is Low, Medium, or High.',
+    'Milestone names must be concrete deliverables, not Week 1 or Project 1.',
+    'Weights are relative effort estimates around a total of 100.',
+    'Keep summary under 16 words.',
   ].join(' ');
 
   try {
     const response = await fetch(config.localAiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(7000),
       body: JSON.stringify({
         model: config.localAiModel,
         messages: [
@@ -148,7 +144,7 @@ export async function analyzeBrief(brief, budget) {
           { role: 'user', content: prompt },
         ],
         temperature: 0.1,
-        max_tokens: 320,
+        max_tokens: 130,
         response_format: { type: 'json_object' },
       }),
     });
