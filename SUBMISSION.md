@@ -43,5 +43,5 @@ Judge preview: https://iwesley.dev/payflow-ai-preview
 Direct demo: https://iwesley.dev/payflow-ai/
 Recorded demo MP4: https://iwesley.dev/payflow-ai-demo.mp4
 Downloadable demo: https://iwesley.dev/payflow-ai-demo-download.mp4
-YouTube demo: <ADD_PUBLIC_YOUTUBE_URL_AFTER_UPLOAD>
+YouTube demo: https://youtu.be/tNFGpnGjSq4?feature=shared
 Repository: https://github.com/VeloxityNL/payflow-ai
