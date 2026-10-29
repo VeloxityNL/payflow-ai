@@ -156,6 +156,11 @@ function renderProposal(project) {
         ${milestoneRows(analysis.milestones)}
       </div>
 
+      <div class="safeguards">
+        <div class="sub">AI safeguards</div>
+        ${(analysis.safeguards || []).map((item) => `<span class="guard">✓ ${escapeHtml(item)}</span>`).join('')}
+      </div>
+
       <div class="approve-row">
         <div class="safe">● No payment can be created until you approve.</div>
         <button class="btn primary" onclick="approve('${project.id}')">

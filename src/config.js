@@ -35,6 +35,6 @@ export const config = {
   paypalClientId: process.env.PAYPAL_CLIENT_ID,
   paypalClientSecret: process.env.PAYPAL_CLIENT_SECRET,
   paypalWebhookId: process.env.PAYPAL_WEBHOOK_ID,
-  localAiUrl: 'http://127.0.0.1:11434/v1/chat/completions',
-  localAiModel: 'nivora-v0.1',
+  localAiUrl: 'http://127.0.0.1:11435/v1/chat/completions',
+  localAiModel: 'payflow-qwen-0.5b',
 };

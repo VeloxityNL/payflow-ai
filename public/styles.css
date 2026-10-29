@@ -524,6 +524,29 @@ input:focus,textarea:focus {
   text-align:center;
   color:#6f879f}
 
+
+/* AI safety indicators */
+.safeguards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.safeguards .sub {
+  flex-basis: 100%;
+  margin-bottom: 0;
+}
+
+.guard {
+  border: 1px solid rgba(86, 227, 159, 0.18);
+  background: rgba(86, 227, 159, 0.07);
+  color: #8be8b8;
+  border-radius: 999px;
+  padding: 6px 9px;
+  font-size: 10px;
+}
+
 /* How it works */
 .how {
   max-width:1180px;

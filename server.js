@@ -24,7 +24,7 @@ app.get('/health', async (req, res) => {
   }
 
   try {
-    const response = await fetch('http://127.0.0.1:11434/v1/models');
+    const response = await fetch('http://127.0.0.1:11435/v1/models');
     localAI = response.ok;
   } catch {
     localAI = false;
