@@ -8,7 +8,9 @@ PayFlow AI is an open-source hackathon project that combines local AI project sc
 
 ## Live demo
 
-- Demo: https://iwesley.dev/payflow-ai/
+- Judge preview: https://iwesley.dev/payflow-ai-preview
+- Direct demo: https://iwesley.dev/payflow-ai/
+- Recorded demo MP4: https://iwesley.dev/payflow-ai-demo.mp4
 - Source: https://github.com/VeloxityNL/payflow-ai
 
 ## Core flow
@@ -31,7 +33,8 @@ The AI is not a decorative chatbot: its structured output directly determines th
 
 - Node.js 24 + Express 5
 - Browser-native responsive frontend
-- Local OpenAI-compatible model (`nivora-v0.1`)
+- Dedicated local Qwen2.5 0.5B Instruct model (`payflow-qwen-0.5b`)
+- AI-output validation + financial normalization layer
 - Deterministic fallback scoping engine for demo reliability
 - PayPal REST API / Sandbox
 - PayPal Orders API
@@ -49,9 +52,34 @@ The AI is not a decorative chatbot: its structured output directly determines th
 
 ## Local development
 
+### 1. Install the web app
+
 ```bash
 npm install
 cp .env.example .env
+```
+
+### 2. Start the local AI model
+
+PayFlow uses the official **Qwen2.5 0.5B Instruct GGUF** model through `llama.cpp`. The model is intentionally not committed to Git because it is hundreds of megabytes.
+
+Download it from:
+
+https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF
+
+Recommended file: `qwen2.5-0.5b-instruct-q4_0.gguf`
+
+Place it in `./models/`, then run:
+
+```bash
+./scripts/start-local-model.sh
+```
+
+If your `llama-server` binary is elsewhere, set `LLAMA_SERVER_BIN`.
+
+### 3. Start PayFlow
+
+```bash
 npm start
 ```
 
@@ -118,6 +146,10 @@ PayPal Sandbox Orders API
             ▼
      Project state + activity
 ```
+
+## Hackathon criteria
+
+See [`CRITERIA.md`](./CRITERIA.md) for a direct mapping of the implementation to the official judging criteria.
 
 ## License
 
